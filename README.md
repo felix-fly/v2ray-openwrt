@@ -7,8 +7,8 @@
 ## 上传软件
 
 ```
-mkdir /usr/bin/v2ray
-cd /usr/bin/v2ray
+mkdir /etc/config/v2ray
+cd /etc/config/v2ray
 # 上传v2ray相关文件到该目录下，配置文件自行百度
 chmod +x v2ray v2ctl
 ```
@@ -16,7 +16,7 @@ chmod +x v2ray v2ctl
 ## 添加服务
 
 ```
-vi /etc/init.d/v2ray
+vi /etc/config/v2ray.service
 ```
 
 贴入以下内容保存退出
@@ -28,7 +28,7 @@ vi /etc/init.d/v2ray
 # options you can use, and when you might want them.
 
 START=80
-ROOT=/usr/bin/v2ray
+ROOT=/etc/config/v2ray
 SERVICE_WRITE_PID=1
 SERVICE_DAEMONIZE=1
 
@@ -46,7 +46,8 @@ stop() {
 服务自启动
 
 ```
-chmod +x /etc/init.d/v2ray
+chmod +x /etc/config/v2ray.service
+ln -s /etc/config/v2ray.service /etc/init.d/v2ray
 /etc/init.d/v2ray enable
 ```
 
@@ -77,6 +78,8 @@ chmod +x /etc/init.d/v2ray
 
 以下为iptables规则，直接在ssh中运行可以工作，但是路由重启后会失效，可以在`luci-网络-防火墙-自定义规则`下添加，如果当前系统没有该配置，可以使用开机自定义脚本实现，详情请咨询度娘。
 
+规则中局域网的ip段（192.168.1.0）和v2ray监听的端口（12345）请结合实际情况修改。
+
 ```
 iptables -t nat -N V2RAY
 iptables -t nat -A V2RAY -d 0.0.0.0/8 -j RETURN
@@ -87,3 +90,8 @@ iptables -t nat -A V2RAY -s 192.168.1.0/24 -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
 iptables -t nat -A OUTPUT -p tcp -j V2RAY
 ```
+
+## 更新记录
+2018-11-03
+* 修改文件路径到/etc/config下，更新固件理论上应该可以保留，待测试
+
