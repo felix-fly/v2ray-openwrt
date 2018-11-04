@@ -16,7 +16,7 @@ chmod +x v2ray v2ctl
 ## 添加服务
 
 ```
-vi /etc/config/v2ray.service
+vi /etc/config/v2ray/v2ray.service
 ```
 
 贴入以下内容保存退出
@@ -46,8 +46,8 @@ stop() {
 服务自启动
 
 ```
-chmod +x /etc/config/v2ray.service
-ln -s /etc/config/v2ray.service /etc/init.d/v2ray
+chmod +x /etc/config/v2ray/v2ray.service
+ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
 /etc/init.d/v2ray enable
 ```
 
