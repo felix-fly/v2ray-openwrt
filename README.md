@@ -33,9 +33,11 @@ SERVICE_WRITE_PID=1
 SERVICE_DAEMONIZE=1
 
 start() {
+  # limit vsz to 32mb (you can change it according to your device)
+  ulimit -v 32678
   service_start $ROOT/v2ray
-#   Only use v2ray via pb config without v2ctl on low flash machine
-#   service_start $ROOT/v2ray -config=$ROOT/config.pb -format=pb
+#  Only use v2ray via pb config without v2ctl on low flash machine
+#  service_start $ROOT/v2ray -config=$ROOT/config.pb -format=pb
 }
 
 stop() {
