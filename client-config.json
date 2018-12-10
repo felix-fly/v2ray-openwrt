@@ -1,0 +1,62 @@
+{
+    "log": {
+        "access": "./access.log",
+        "error": "./error.log",
+        "loglevel": "warning"
+    },
+    "inbounds": [{
+        "port": 12345,
+        "protocol": "socks",
+        "settings": {
+            "udp": true
+        }
+    }],
+    "outbounds": [{
+        "protocol": "freedom",
+        "settings": {}
+    }, {
+        "protocol": "blackhole",
+        "settings": {},
+        "tag": "blocked"
+    }, {
+        "protocol": "vmess",
+        "tag": "proxy",
+        "settings": {
+            "vnext": [{
+                "address": "==YOUR DOMAIN or SERVER ADDRESS==",
+                "port": 443,
+                "users": [{
+                    "id": "==YOUR USER ID==",
+                    "alterId" : 128,
+                    "security" : "chacha20-poly1305",
+                    "level" : 1
+                }]
+            }]
+        },
+        "streamSettings": {
+            "network" : "ws",
+            "security": "tls",
+            "wsSettings" : {
+                "path" : "\/==YOUR ENTRY PATH==\/"
+            },
+            "tlsSettings" : {
+                "serverName" : "==YOUR DOMAIN or SERVER ADDRESS==",
+                "allowInsecure" : false
+            }
+        }
+    }],
+    "routing": {
+        "strategy": "rules",
+        "settings": {
+            "rules": [{
+                "type": "field",
+                "domain" : ["site:gw", "ip111cn.appspot.com"],
+                "outboundTag": "proxy"
+            }, {
+                "type": "field",
+                "domain" : ["site:ad"],
+                "outboundTag": "blocked"
+            }]
+        }
+    }
+}
