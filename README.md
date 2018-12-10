@@ -1,6 +1,6 @@
 # v2ray-openwrt
 
-本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档。
+本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出了一个[配置样例](./client-config.json)供参考。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
 
 下载路由器硬件对应平台的压缩包到电脑并解压。
 
@@ -92,6 +92,9 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 ```
 
 ## 更新记录
+2018-12-10
+* 增加了客户端配置样例，方便使用
+
 2018-11-03
 * 修改文件路径到/etc/config下，更新固件理论上应该可以保留，待测试
 
