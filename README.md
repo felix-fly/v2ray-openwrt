@@ -17,7 +17,7 @@ UPX在这里功不可没，之前是直接不带任何参数压缩，体积还�
 
 ## 极致压缩
 
-之前就有人发过相关的教程修改all.go文件，通过减少依赖缩小v2ray的体积，那是还是用的vbuild编译，现在已经使用bazel来build了。可以参考这个[issue](https://github.com/v2ray/v2ray-core/issues/1506)修改all.go文件:
+之前就有人发过相关的教程修改all.go文件，通过减少依赖缩小v2ray的体积，那时还是用的vbuild编译，现在已经使用bazel来build了。可以参考这个[issue](https://github.com/v2ray/v2ray-core/issues/1506)修改all.go文件:
 
 ```
 main/distro/all/all.go
@@ -101,8 +101,8 @@ SERVICE_WRITE_PID=1
 SERVICE_DAEMONIZE=1
 
 start() {
-  # limit vsz to 32mb (you can change it according to your device)
-  ulimit -v 32678
+  # limit vsz to 64mb (you can change it according to your device)
+  ulimit -v 65536
   service_start $ROOT/v2ray
 #  Only use v2ray via pb config without v2ctl on low flash machine
 #  service_start $ROOT/v2ray -config=$ROOT/config.pb -format=pb
