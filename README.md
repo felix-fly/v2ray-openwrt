@@ -2,7 +2,75 @@
 
 本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出了一个[配置样例](./client-config.json)供参考。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
 
+随着v2ray功能的不断完善，相应的体积也一直在增加，以目前4.18版本为例，这里使用的mipsle平台的v2ray已经超过了14mb，v2ctl也有10mb，如果你的路由器存储空间不是足够大，那么精简或者说压缩v2ray的体积势在必行。
+
 下载路由器硬件对应平台的压缩包到电脑并解压。
+
+## 压缩体积
+
+```
+upx -k --best --lzma v2ray
+upx -k --best --lzma v2ctl
+```
+
+UPX在这里功不可没，之前是直接不带任何参数压缩，体积还可接受，但是目前这个版本压缩后也有4.9mb的块头，笔者的k2p表示吃不消。于是参数化之后发现体积缩小至3.3mb，比现在使用的版本还小一些。如果你不追求极致，到此就可以洗洗睡了（厄～，那个～，好像还没完呢。。。）。
+
+## 极致压缩
+
+之前就有人发过相关的教程修改all.go文件，通过减少依赖缩小v2ray的体积，那是还是用的vbuild编译，现在已经使用bazel来build了。可以参考这个[issue](https://github.com/v2ray/v2ray-core/issues/1506)修改all.go文件:
+
+```
+main/distro/all/all.go
+```
+
+修改后类似这个样子，tls暂时先保留，是否可以去掉待验证
+
+```
+package all
+
+import (
+  // The following are necessary as they register handlers in their init functions.
+
+  // Required features. Can't remove unless there is replacements.
+  _ "v2ray.com/core/app/dispatcher"
+  _ "v2ray.com/core/app/proxyman/inbound"
+  _ "v2ray.com/core/app/proxyman/outbound"
+
+  // Other optional features.
+  _ "v2ray.com/core/app/log"
+  _ "v2ray.com/core/app/router"
+
+  // Inbound and outbound proxies.
+  _ "v2ray.com/core/proxy/blackhole"
+  _ "v2ray.com/core/proxy/freedom"
+  _ "v2ray.com/core/proxy/socks"
+  _ "v2ray.com/core/proxy/vmess/outbound"
+
+  // Transports
+  _ "v2ray.com/core/transport/internet/tls"
+  _ "v2ray.com/core/transport/internet/websocket"
+  
+  // Transport headers
+  _ "v2ray.com/core/transport/internet/headers/tls"
+
+  // JSON config support. Choose only one from the two below.
+  _ "v2ray.com/core/main/json"
+
+  // Load config from file or http(s)
+  _ "v2ray.com/core/main/confloader/external"
+)
+```
+
+然后编译你要的平台安装包
+
+```
+bazel clean
+bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_linux_mipsle_package
+```
+
+经过减少依赖项打包出来的v2ray体积为10mb多一点，再结合UPX最终的大小控制在了2.5mb，顿时感觉一身轻松啊（我是路由器，嘎嘎～）。
+
+**ps：文末有福利！文末有福利！文末有福利！**
 
 ## 上传软件
 
@@ -67,7 +135,7 @@ ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
 
 ## 生成pb文件（可选）
 
-主要针对小内存设备，v2ray + v2ctl原始程序体积较大，比较占内存（路由的内存相当于电脑的硬盘，并非运存）。使用pb文件可以不依赖v2ctl，同时可以使用upx进一步压缩v2ray程序的体积。使用pd的缺点是不能在路由中直接修改配置文件了。
+主要针对小内存设备，v2ray + v2ctl原始程序体积较大，比较占内存（路由的内存相当于电脑的硬盘，并非运存）。使用pb文件可以不依赖v2ctl，使用pd的缺点是不能在路由中直接修改配置文件了。
 
 ```
 # 在电脑（这里是linux系统）上使用v2ctl转换json配置文件
@@ -94,9 +162,17 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 ```
 
 ## 更新记录
+2019-03-12
+* 更新v2ray到4.18
+* 增加压缩流程
+
 2018-12-10
 * 增加了客户端配置样例，方便使用
 
 2018-11-03
 * 修改文件路径到/etc/config下，更新固件理论上应该可以保留，待测试
 
+
+## 送福利
+
+如果你用的路由器恰好是mipsel平台的话，那么可以直接在release页面下载压缩好的v2ray使用了。
