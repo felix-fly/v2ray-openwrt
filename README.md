@@ -23,7 +23,9 @@ UPX在这里功不可没，之前是直接不带任何参数压缩，体积还�
 main/distro/all/all.go
 ```
 
-修改后类似这个样子，tls暂时先保留，是否可以去掉待验证
+修改后类似这个样子，tls暂时先保留，是否可以去掉待验证。
+
+关于JSON配置这里，有两种选择，代码里的注释已经说明了，默认的配置是依赖v2ctl来处理JSON文件，而另外一种选择jsonem的话，v2ray可以直接处理JSON文件，不再依赖v2ctl，只是体积会相应的增大。
 
 ```
 package all
@@ -54,7 +56,11 @@ import (
   _ "v2ray.com/core/transport/internet/headers/tls"
 
   // JSON config support. Choose only one from the two below.
+  // The following line loads JSON from v2ctl
   _ "v2ray.com/core/main/json"
+  // The following line loads JSON internally
+  // Use this one v2ctl will be useless
+  // _ "v2ray.com/core/main/jsonem"
 
   // Load config from file or http(s)
   _ "v2ray.com/core/main/confloader/external"
@@ -69,6 +75,8 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 ```
 
 经过减少依赖项打包出来的v2ray体积为10mb多一点，再结合UPX最终的大小控制在了2.5mb，顿时感觉一身轻松啊（我是路由器，嘎嘎～）。
+
+如果采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接使用json配置文件而不再需要额外转换为pb文件。当然最终的选择取决于你自己的实际需求。
 
 **ps：文末有福利！文末有福利！文末有福利！**
 
@@ -135,6 +143,8 @@ ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
 
 ## 生成pb文件（可选）
 
+**对于采用jsonem方式编译的v2ray可以直接读取json文件，不再需要转换。**
+
 主要针对小内存设备，v2ray + v2ctl原始程序体积较大，比较占内存（路由的内存相当于电脑的硬盘，并非运存）。使用pb文件可以不依赖v2ctl，使用pd的缺点是不能在路由中直接修改配置文件了。
 
 ```
@@ -175,4 +185,4 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 
 ## 送福利
 
-如果你用的路由器恰好是mipsel平台的话，那么可以直接在release页面下载压缩好的v2ray使用了。
+如果你用的路由器恰好是mipsel平台的话，那么可以直接在release页面下载压缩好的v2ray使用了。带json的是v2ray已经直接支持了json配置文件，不需要v2ctl，也不需要额外转换pb文件。
