@@ -172,6 +172,9 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 ```
 
 ## 更新记录
+2019-03-13
+* 增加了内置json处理的相关说明
+
 2019-03-12
 * 更新v2ray到4.18
 * 增加压缩流程
