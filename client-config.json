@@ -6,9 +6,15 @@
     },
     "inbounds": [{
         "port": 12345,
-        "protocol": "socks",
+        "protocol": "dokodemo-door",
+        "sniffing": {
+          "enabled": true,
+          "destOverride": ["http", "tls"]
+        },
         "settings": {
-            "udp": true
+          "network": "tcp",
+          "timeout": 30,
+          "followRedirect": true
         }
     }],
     "outbounds": [{
