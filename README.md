@@ -44,6 +44,7 @@ import (
 
   // Inbound and outbound proxies.
   _ "v2ray.com/core/proxy/blackhole"
+  _ "v2ray.com/core/proxy/dokodemo"
   _ "v2ray.com/core/proxy/freedom"
   _ "v2ray.com/core/proxy/socks"
   _ "v2ray.com/core/proxy/vmess/outbound"
