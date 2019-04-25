@@ -6,6 +6,12 @@
 
 下载路由器硬件对应平台的压缩包到电脑并解压。
 
+## 另一种解决方案（优化方案）
+
+如果v2ray一站式服务的方式不能满足你的需求，或者遇到了性能瓶颈（下载慢），可以试试另外一种解决方案（优化方案）：
+
+[v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
+
 ## 压缩体积
 
 ```
