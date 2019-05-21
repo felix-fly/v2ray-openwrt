@@ -1,6 +1,6 @@
 # v2ray-openwrt
 
-本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出了一个[配置样例](./client-config.json)供参考。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
+本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出了一个[配置样例](./client-config.json)供参考。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://gitee.com/felix-fly/v2ray-adlist)获取最新版。
 
 随着v2ray功能的不断完善，相应的体积也一直在增加，以目前4.18版本为例，这里使用的mipsle平台的v2ray已经超过了14mb，v2ctl也有10mb，如果你的路由器存储空间不是足够大，那么精简或者说压缩v2ray的体积势在必行。
 
@@ -10,7 +10,7 @@
 
 如果v2ray一站式服务的方式不能满足你的需求，或者遇到了性能瓶颈（下载慢），可以试试另外一种解决方案（优化方案）：
 
-[v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
+[v2ray-dnsmasq-dnscrypt](https://gitee.com/felix-fly/v2ray-dnsmasq-dnscrypt)
 
 ## 压缩体积
 
@@ -179,6 +179,8 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 ```
 
 ## 更新记录
+* 代码迁移至码云，修正链接地址
+
 2019-03-13
 * 增加了内置json处理的相关说明
 
