@@ -178,7 +178,15 @@ iptables -t nat -A PREROUTING -p tcp -j V2RAY
 iptables -t nat -A OUTPUT -p tcp -j V2RAY
 ```
 
+## 送福利
+
+release页面提供了linux平台下的v2ray执行文件，默认已经过upx压缩，不支持压缩的保持不变。压缩包中仅包含v2ray执行文件，因为已经编译支持了json配置文件，运行不需要v2ctl，也无需额外转换pb文件。
+
 ## 更新记录
+2019-05-31
+* linux各平台编译好的文件可在release下载
+
+2019-05-21
 * 代码迁移至码云，修正链接地址
 
 2019-03-13
@@ -194,7 +202,3 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 2018-11-03
 * 修改文件路径到/etc/config下，更新固件理论上应该可以保留，待测试
 
-
-## 送福利
-
-如果你用的路由器恰好是mipsel平台的话，那么可以直接在release页面下载压缩好的v2ray使用了。带json的是v2ray已经直接支持了json配置文件，不需要v2ctl，也不需要额外转换pb文件。
