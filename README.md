@@ -169,13 +169,12 @@ ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
 
 ```
 iptables -t nat -N V2RAY
-iptables -t nat -A V2RAY -d 0.0.0.0/8 -j RETURN
-iptables -t nat -A V2RAY -d 127.0.0.0/8 -j RETURN
+iptables -t nat -A V2RAY -d 0.0.0.0 -j RETURN
+iptables -t nat -A V2RAY -d 127.0.0.0 -j RETURN
 iptables -t nat -A V2RAY -d 192.168.1.0/24 -j RETURN
 # From lans redirect to Dokodemo-door's local port
 iptables -t nat -A V2RAY -s 192.168.1.0/24 -p tcp -j REDIRECT --to-ports 12345
 iptables -t nat -A PREROUTING -p tcp -j V2RAY
-iptables -t nat -A OUTPUT -p tcp -j V2RAY
 ```
 
 ## 送福利
@@ -183,6 +182,9 @@ iptables -t nat -A OUTPUT -p tcp -j V2RAY
 release页面提供了linux平台下的v2ray执行文件，默认已经过upx压缩，不支持压缩的保持不变。压缩包中仅包含v2ray执行文件，因为已经编译支持了json配置文件，运行不需要v2ctl，也无需额外转换pb文件。
 
 ## 更新记录
+2019-07-02
+* 4.19.1
+
 2019-05-31
 * linux各平台编译好的文件可在release下载
 
