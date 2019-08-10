@@ -1,0 +1,5 @@
+#!/bin/sh
+# chkconfig: 2345 90 10
+# description: Starts/Stops the doh Server
+
+/etc/doh/doh-server
