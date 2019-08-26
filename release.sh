@@ -4,7 +4,7 @@
 path=~/go/src/v2ray.com/core/bazel-bin/release
 rm -rf dist
 mkdir dist
-for file in $path/v2ray-linux*.zip; do
+for file in $path/v2ray-*.zip; do
   mkdir tmp
   name=${file##*/}
   base=${name%.zip}
