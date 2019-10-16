@@ -13,7 +13,6 @@
         },
         "settings": {
           "network": "tcp",
-          "timeout": 30,
           "followRedirect": true
         }
     }],
@@ -33,9 +32,7 @@
                 "port": 443,
                 "users": [{
                     "id": "==YOUR USER ID==",
-                    "alterId" : 128,
-                    "security" : "chacha20-poly1305",
-                    "level" : 1
+                    "alterId" : 4
                 }]
             }]
         },
@@ -44,10 +41,6 @@
             "security": "tls",
             "wsSettings" : {
                 "path" : "\/==YOUR ENTRY PATH==\/"
-            },
-            "tlsSettings" : {
-                "serverName" : "==YOUR DOMAIN or SERVER ADDRESS==",
-                "allowInsecure" : false
             }
         }
     }],
