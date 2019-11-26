@@ -11,31 +11,28 @@
 #
 ### END INIT INFO
 
-PROG="v2ray"
-PROG_PATH="/etc/v2ray"
-PROG_ARGS="" 
-PID_PATH="/var/run/"
+APP="/etc/v2ray/v2ray"
+LOCK="/var/run/v2ray.lock"
 
 start() {
-    if [ -e "$PID_PATH/$PROG.pid" ]; then
-        echo "Error! $PROG is currently running!" 1>&2
+    if [ -e $LOCK ]; then
+        echo "v2ray is running" 1>&2
         exit 1
     else
-        $PROG_PATH/$PROG $PROG_ARGS 2>&1 >/var/log/$PROG & $pid=`ps ax | grep -i $PROG | sed 's/^\([0-9]\{1,\}\).*/\1/g' | head -n 1`
-        echo "$PROG started"
-        echo $pid > "$PID_PATH/$PROG.pid"
+        $APP 2>&1 >/var/log/v2ray.log
+        echo "v2ray started"
+        echo "" > $LOCK
     fi
 }
 
 stop() {
-    echo "begin stop"
-    if [ -e "$PID_PATH/$PROG.pid" ]; then
-        pid=`ps ax | grep -i $PROG | sed 's/^\([0-9]\{1,\}\).*/\1/g' | head -n 1`
-    kill $pid
-        rm -f  "$PID_PATH/$PROG.pid"
-        echo "$PROG stopped"
+    if [ -e $LOCK ]; then
+        pid=`ps ax | grep -i v2ray | sed 's/^\([0-9]\{1,\}\).*/\1/g' | head -n 1`
+        kill $pid
+        rm -f $LOCK
+        echo "v2ray stopped"
     else
-        echo "Error! $PROG not started!" 1>&2
+        echo "v2ray not running" 1>&2
         exit 1
     fi
 }
@@ -49,13 +46,13 @@ case "$1" in
         stop
         exit 0
     ;;
-    reload|restart|force-reload)
+    restart)
         stop
         start
         exit 0
     ;;
     **)
-        echo "Usage: $0 {start|stop|reload}" 1>&2
+        echo "Usage: $0 {start|stop|restart}" 1>&2
         exit 1
     ;;
 esac
