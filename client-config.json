@@ -1,6 +1,5 @@
 {
     "log": {
-        "access": "./access.log",
         "error": "./error.log",
         "loglevel": "warning"
     },
@@ -12,7 +11,7 @@
           "destOverride": ["http", "tls"]
         },
         "settings": {
-          "network": "tcp",
+          "network": "tcp,udp",
           "followRedirect": true
         }
     }],
@@ -41,6 +40,10 @@
             "security": "tls",
             "wsSettings" : {
                 "path" : "\/==YOUR ENTRY PATH==\/"
+            },
+            "sockopt": {
+                "mark": 255,
+                "tproxy": "tproxy"
             }
         }
     }],
@@ -49,7 +52,7 @@
         "settings": {
             "rules": [{
                 "type": "field",
-                "domain" : ["ext:site.dat:gw", "ip111cn.appspot.com"],
+                "domain" : ["ext:site.dat:gw"],
                 "outboundTag": "proxy"
             }, {
                 "type": "field",

@@ -2,17 +2,113 @@
 
 本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出了一个[配置样例](./client-config.json)供参考，配置采用ws作为底层传输协议，服务端及nginx相关配置可度娘。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
 
+配置中开启了UDP支持，如不需要可以自行删除。
+
 ## 另一种解决方案（优化方案）
 
 如果v2ray一站式服务的方式不能满足你的需求，或者遇到了性能瓶颈（下载慢），可以试试另外一种解决方案（优化方案）：
 
 [v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
 
-## 懒人模式
+## 下载压缩好的v2ray
 
 [release](https://github.com/felix-fly/v2ray-openwrt/releases)页面提供了各平台下的v2ray执行文件，可以直接下载使用。
 
 默认已经过upx压缩，不支持压缩的保持不变。压缩包中仅包含v2ray执行文件，因为已经编译支持了json配置文件，运行不需要v2ctl。
+
+## 上传软件及客户端配置文件
+
+```
+mkdir /etc/config/v2ray
+cd /etc/config/v2ray
+# 上传v2ray、config.json文件到该目录下，配置文件根据个人需求修改
+chmod +x v2ray
+```
+
+## 添加服务
+
+```
+vi /etc/config/v2ray/v2ray.service
+```
+
+贴入以下内容保存退出
+
+```
+#!/bin/sh /etc/rc.common
+# "new(er)" style init script
+# Look at /lib/functions/service.sh on a running system for explanations of what other SERVICE_
+# options you can use, and when you might want them.
+
+START=80
+ROOT=/etc/config/v2ray
+SERVICE_WRITE_PID=1
+SERVICE_DAEMONIZE=1
+
+start() {
+  service_start $ROOT/v2ray
+}
+
+stop() {
+  service_stop $ROOT/v2ray
+}
+```
+
+服务自启动
+
+```
+chmod +x /etc/config/v2ray/v2ray.service
+ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
+/etc/init.d/v2ray enable
+```
+
+开启
+
+```
+/etc/init.d/v2ray start
+```
+
+关闭
+
+```
+/etc/init.d/v2ray stop
+```
+
+## 透明代理（可选）
+
+使用iptables实现，当前系统是否支持请先自行验证。开启UDP需要 iptables-mod-tproxy 模块，请确保已经安装好。
+
+以下为iptables规则，直接在ssh中运行可以工作，但是路由重启后会失效，可以在`luci-网络-防火墙-自定义规则`下添加，如果当前系统没有该配置，可以使用开机自定义脚本实现，详情请咨询度娘。
+
+规则中局域网的ip段（192.168.1.0）和v2ray监听的端口（12345）请结合实际情况修改。
+
+```
+# Only TCP
+iptables -t nat -N V2RAY
+iptables -t nat -A V2RAY -d 0.0.0.0 -j RETURN
+iptables -t nat -A V2RAY -d 127.0.0.0 -j RETURN
+iptables -t nat -A V2RAY -d 192.168.1.0/24 -j RETURN
+# From lans redirect to Dokodemo-door's local port
+iptables -t nat -A V2RAY -s 192.168.1.0/24 -p tcp -j REDIRECT --to-ports 12345
+iptables -t nat -A PREROUTING -p tcp -j V2RAY
+```
+
+```
+# With UDP support
+ip rule add fwmark 1 table 100
+ip route add local 0.0.0.0/0 dev lo table 100
+iptables -t mangle -N V2RAY
+iptables -t mangle -A V2RAY -d 0.0.0.0 -j RETURN
+iptables -t mangle -A V2RAY -d 127.0.0.0 -j RETURN
+iptables -t mangle -A V2RAY -d 192.168.1.0/24 -j RETURN
+# From lans redirect to Dokodemo-door's local port
+iptables -t mangle -A V2RAY -p tcp -s 192.168.1.0/24 -j TPROXY --on-port 12345 --tproxy-mark 1
+iptables -t mangle -A V2RAY -p udp -s 192.168.1.0/24 -j TPROXY --on-port 12345 --tproxy-mark 1
+iptables -t mangle -A PREROUTING -j V2RAY
+```
+
+# 长尾
+
+以下内容一般来说不需要继续看了，如果你想自己定制v2ray，come on!
 
 ## 普通压缩
 
@@ -66,86 +162,10 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
-## 上传软件
-
-```
-mkdir /etc/config/v2ray
-cd /etc/config/v2ray
-# 上传v2ray相关文件到该目录下，配置文件根据个人需求修改
-chmod +x v2ray v2ctl
-```
-
-## 添加服务
-
-```
-vi /etc/config/v2ray/v2ray.service
-```
-
-贴入以下内容保存退出
-
-```
-#!/bin/sh /etc/rc.common
-# "new(er)" style init script
-# Look at /lib/functions/service.sh on a running system for explanations of what other SERVICE_
-# options you can use, and when you might want them.
-
-START=80
-ROOT=/etc/config/v2ray
-SERVICE_WRITE_PID=1
-SERVICE_DAEMONIZE=1
-
-start() {
-  # limit vsz to 64mb (you can change it according to your device)
-  ulimit -v 65536
-  service_start $ROOT/v2ray
-#  Only use v2ray via pb config without v2ctl on low flash machine
-#  service_start $ROOT/v2ray -config=$ROOT/config.pb -format=pb
-}
-
-stop() {
-  service_stop $ROOT/v2ray
-}
-```
-
-服务自启动
-
-```
-chmod +x /etc/config/v2ray/v2ray.service
-ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
-/etc/init.d/v2ray enable
-```
-
-开启
-
-```
-/etc/init.d/v2ray start
-```
-
-关闭
-
-```
-/etc/init.d/v2ray stop
-```
-
-## 透明代理（可选）
-
-使用iptables实现，当前系统是否支持请先自行验证。
-
-以下为iptables规则，直接在ssh中运行可以工作，但是路由重启后会失效，可以在`luci-网络-防火墙-自定义规则`下添加，如果当前系统没有该配置，可以使用开机自定义脚本实现，详情请咨询度娘。
-
-规则中局域网的ip段（192.168.1.0）和v2ray监听的端口（12345）请结合实际情况修改。
-
-```
-iptables -t nat -N V2RAY
-iptables -t nat -A V2RAY -d 0.0.0.0 -j RETURN
-iptables -t nat -A V2RAY -d 127.0.0.0 -j RETURN
-iptables -t nat -A V2RAY -d 192.168.1.0/24 -j RETURN
-# From lans redirect to Dokodemo-door's local port
-iptables -t nat -A V2RAY -s 192.168.1.0/24 -p tcp -j REDIRECT --to-ports 12345
-iptables -t nat -A PREROUTING -p tcp -j V2RAY
-```
-
 ## 更新记录
+2019-12-06
+* 增加UDP
+
 2019-10-16
 * 使用最新代码编译 4.20.0
 * 简化流程
