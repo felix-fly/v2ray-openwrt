@@ -1,0 +1,49 @@
+name: build
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: init
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y upx
+          wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xzf go1.13.5.linux-amd64.tar.gz
+      - name: build
+        run: |
+          mkdir tmp
+          mkdir bin
+          git clone https://github.com/v2ray/v2ray-core.git
+          sed -i 's/_ "v2ray.com\/core\/main\/json"/\/\/_ "v2ray.com\/core\/main\/json"/' v2ray-core/main/distro/all/all.go
+          sed -i 's/\/\/ _ "v2ray.com\/core\/main\/jsonem"/_ "v2ray.com\/core\/main\/jsonem"/' v2ray-core/main/distro/all/all.go
+          wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh
+          chmod +x ./build.sh
+          ./build.sh linux 386
+          ./build.sh linux amd64
+          ./build.sh linux arm
+          ./build.sh linux arm64
+          ./build.sh linux mips
+          ./build.sh linux mipsle
+          ./build.sh linux mips64
+          ./build.sh linux mips64le
+          ./build.sh linux ppc64
+          ./build.sh linux ppc64le
+          ./build.sh dragonfly amd64
+          ./build.sh freebsd 386
+          ./build.sh freebsd amd64
+          ./build.sh darwin amd64
+          ./build.sh openbsd 386
+          ./build.sh openbsd amd64
+          ./build.sh windows 386
+          ./build.sh windows amd64
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: bin
