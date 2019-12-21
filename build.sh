@@ -31,7 +31,7 @@ packzip() {
 	echo ">>> Generating zip package"
 	cd $BASH
   upx --best --lzma $TMP/*
-	zip -qj $OUT/v2ray-${GOOS}-${GOARCH}.zip $TMP
+	zip -qj $OUT/v2ray-${GOOS}-${GOARCH}.zip $TMP/*
 	echo ">>> Generated: $(basename $PKG)"
 }
 
