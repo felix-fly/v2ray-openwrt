@@ -23,6 +23,10 @@ jobs:
           sed -i 's/\/\/ _ "v2ray.com\/core\/main\/jsonem"/_ "v2ray.com\/core\/main\/jsonem"/' v2ray-core/main/distro/all/all.go
           wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh
           chmod +x ./build.sh
+          ./build.sh darwin amd64
+          ./build.sh dragonfly amd64
+          ./build.sh freebsd 386
+          ./build.sh freebsd amd64
           ./build.sh linux 386
           ./build.sh linux amd64
           ./build.sh linux arm
@@ -33,10 +37,7 @@ jobs:
           ./build.sh linux mips64le
           ./build.sh linux ppc64
           ./build.sh linux ppc64le
-          ./build.sh dragonfly amd64
-          ./build.sh freebsd 386
-          ./build.sh freebsd amd64
-          ./build.sh darwin amd64
+          ./build.sh linux s390x
           ./build.sh openbsd 386
           ./build.sh openbsd amd64
           ./build.sh windows 386
