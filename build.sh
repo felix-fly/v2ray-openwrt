@@ -3,7 +3,6 @@
 NOW=$(date '+%Y%m%d-%H%M%S')
 BASH=$(dirname $(readlink -f "$0"))
 TMP=$BASH/tmp
-OUT=$BASH/out
 
 CODENAME="user"
 BUILDNAME=$NOW
@@ -31,7 +30,7 @@ packzip() {
 	echo ">>> Generating zip package"
 	cd $BASH
   upx --best --lzma $TMP/*
-	zip -qj $OUT/v2ray-${GOOS}-${GOARCH}.zip $TMP/*
+	zip -qj bin/v2ray-${GOOS}-${GOARCH}.zip $TMP/*
 	echo ">>> Generated: $(basename $PKG)"
 }
 
