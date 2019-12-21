@@ -2,8 +2,8 @@
 
 NOW=$(date '+%Y%m%d-%H%M%S')
 BASH=$(dirname $(readlink -f "$0"))
-TMP=$BASH/../tmp
-OUT=$BASH/../out
+TMP=$BASH/tmp
+OUT=$BASH/out
 
 CODENAME="user"
 BUILDNAME=$NOW
@@ -22,8 +22,8 @@ build_v2() {
 	if [[ $GOOS == "windows" ]];then
 	  env CGO_ENABLED=0 go build -o $TMP/wv2ray${EXESUFFIX} -ldflags "-s -w -H windowsgui"
 	fi
-	cd ../..
 
+	cd ..
 	git checkout -- core.go
 }
 

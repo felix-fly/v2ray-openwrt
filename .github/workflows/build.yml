@@ -25,23 +25,23 @@ jobs:
           wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh
           chmod +x ./build.sh
           ./build.sh linux 386
-          ./build.sh linux amd64
-          ./build.sh linux arm
-          ./build.sh linux arm64
-          ./build.sh linux mips
-          ./build.sh linux mipsle
-          ./build.sh linux mips64
-          ./build.sh linux mips64le
-          ./build.sh linux ppc64
-          ./build.sh linux ppc64le
-          ./build.sh dragonfly amd64
-          ./build.sh freebsd 386
-          ./build.sh freebsd amd64
-          ./build.sh darwin amd64
-          ./build.sh openbsd 386
-          ./build.sh openbsd amd64
-          ./build.sh windows 386
-          ./build.sh windows amd64
+          # ./build.sh linux amd64
+          # ./build.sh linux arm
+          # ./build.sh linux arm64
+          # ./build.sh linux mips
+          # ./build.sh linux mipsle
+          # ./build.sh linux mips64
+          # ./build.sh linux mips64le
+          # ./build.sh linux ppc64
+          # ./build.sh linux ppc64le
+          # ./build.sh dragonfly amd64
+          # ./build.sh freebsd 386
+          # ./build.sh freebsd amd64
+          # ./build.sh darwin amd64
+          # ./build.sh openbsd 386
+          # ./build.sh openbsd amd64
+          # ./build.sh windows 386
+          # ./build.sh windows amd64
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
