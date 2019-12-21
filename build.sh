@@ -22,7 +22,7 @@ build_v2() {
 	if [[ $GOOS == "windows" ]];then
 	  env CGO_ENABLED=0 go build -o $TMP/wv2ray${EXESUFFIX} -ldflags "-s -w -H windowsgui"
 	fi
-	cd ..
+	cd ../..
 
 	git checkout -- core.go
 }
@@ -36,10 +36,10 @@ packzip() {
 	echo ">>> Generated: $(basename $PKG)"
 }
 
-GOOS=$0
-GOARCH=$1
+GOOS=$1
+GOARCH=$2
 
-if [ "$0" = "windows" ]; then
+if [ "$1" = "windows" ]; then
   EXESUFFIX=.exe
 else
   EXESUFFIX=
