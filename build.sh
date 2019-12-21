@@ -31,7 +31,6 @@ packzip() {
 	cd $BASH
   upx --best --lzma $TMP/*
 	zip -qj bin/v2ray-${GOOS}-${GOARCH}.zip $TMP/*
-	echo ">>> Generated: $(basename $PKG)"
 }
 
 GOOS=$1

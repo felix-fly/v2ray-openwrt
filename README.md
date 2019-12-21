@@ -163,6 +163,9 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
 ## 更新记录
+2019-12-21
+* 添加了自动build的action
+
 2019-12-06
 * 增加UDP
 
