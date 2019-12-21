@@ -29,10 +29,9 @@ build_v2() {
 
 packzip() {
 	echo ">>> Generating zip package"
-	cd $TMP
-  upx --best --lzma *
-	local PKG=$OUT/v2ray-${GOOS}-${GOARCH}.zip
-	zip -r $PKG .
+	cd $BASH
+  upx --best --lzma $TMP/*
+	zip -qj $OUT/v2ray-${GOOS}-${GOARCH}.zip $TMP
 	echo ">>> Generated: $(basename $PKG)"
 }
 
