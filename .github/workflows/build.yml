@@ -19,6 +19,9 @@ jobs:
           mkdir tmp
           mkdir bin
           git clone https://github.com/v2ray/v2ray-core.git
+          cd v2ray-core
+          git checkout tags/v4.22.1
+          cd ..
           sed -i 's/_ "v2ray.com\/core\/main\/json"/\/\/_ "v2ray.com\/core\/main\/json"/' v2ray-core/main/distro/all/all.go
           sed -i 's/\/\/ _ "v2ray.com\/core\/main\/jsonem"/_ "v2ray.com\/core\/main\/jsonem"/' v2ray-core/main/distro/all/all.go
           wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh

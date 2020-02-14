@@ -38,12 +38,12 @@
         "streamSettings": {
             "network" : "ws",
             "security": "tls",
-            "wsSettings" : {
-                "path" : "\/==YOUR ENTRY PATH==\/"
-            },
             "sockopt": {
                 "mark": 255,
                 "tproxy": "tproxy"
+            },
+            "wsSettings" : {
+                "path" : "==YOUR ENTRY PATH=="
             }
         }
     }],

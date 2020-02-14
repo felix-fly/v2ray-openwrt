@@ -1,8 +1,16 @@
 # v2ray-openwrt
 
-本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出了一个[配置样例](./client-config.json)供参考，配置采用ws作为底层传输协议，服务端及nginx相关配置可度娘。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
+本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出的配置样例 [仅TCP](./client-tcp.json) [支持UDP](./client-udp.json) 供参考，配置采用ws作为底层传输协议，服务端及nginx相关配置可度娘。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
 
-配置中开启了UDP支持，如不需要可以自行删除。
+## 安装脚本
+
+ssh登陆到路由器执行脚本，路由器需联网及已安装wget。
+
+```shell
+wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/install.sh
+chmod +x install.sh
+./install.sh
+```
 
 ## 另一种解决方案（优化方案）
 
