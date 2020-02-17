@@ -4,12 +4,26 @@
 
 ## 安装脚本
 
+路由器CPU平台请自行查询确认，支持的平台如下
+
+* 386
+* amd64
+* arm
+* arm64
+* mips
+* mipsle
+* mips64
+* mips64le
+* ppc64
+* ppc64le
+* s390x
+
 ssh登陆到路由器执行脚本，路由器需联网及已安装wget。
 
 ```shell
 wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/install.sh
 chmod +x install.sh
-./install.sh
+./install.sh 386
 ```
 
 ## 另一种解决方案（优化方案）
@@ -171,6 +185,9 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
 ## 更新记录
+2020-02-17
+* 增加了安装脚本
+
 2019-12-21
 * 添加了自动build的action
 
