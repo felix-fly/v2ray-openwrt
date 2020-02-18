@@ -16,7 +16,6 @@
 * mips64le
 * ppc64
 * ppc64le
-* s390x
 
 ssh登陆到路由器执行脚本，路由器需联网及已安装wget。
 
