@@ -32,7 +32,9 @@ jobs:
           ./build.sh freebsd amd64
           ./build.sh linux 386
           ./build.sh linux amd64
-          ./build.sh linux arm
+          ./build.sh linux armv5
+          ./build.sh linux armv6
+          ./build.sh linux armv7
           ./build.sh linux arm64
           ./build.sh linux mips
           ./build.sh linux mipsle

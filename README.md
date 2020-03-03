@@ -8,7 +8,9 @@
 
 * 386
 * amd64
-* arm
+* armv5
+* armv6
+* armv7
 * arm64
 * mips
 * mipsle
@@ -24,6 +26,8 @@ wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/install.sh
 chmod +x install.sh
 ./install.sh 386
 ```
+
+CPU不支持硬件浮点计算时需要开启FPU。
 
 ## 另一种解决方案（优化方案）
 

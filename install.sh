@@ -5,7 +5,7 @@ DIR=/etc/config/v2ray
 # DIR=./tmp
 
 platform="$1"
-all=",386,amd64,arm,arm64,mips,mipsle,mips64,mips64le,ppc64,ppc64le,s390x,"
+all=",386,amd64,armv5,armv6,armv7,arm64,mips,mipsle,mips64,mips64le,ppc64,ppc64le,s390x,"
 result=$(echo $all | grep ",${platform},")
 if [[ "$result" != "" ]]
 then
