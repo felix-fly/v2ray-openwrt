@@ -24,11 +24,11 @@ build_v2() {
 		env CGO_ENABLED=0 go build -o $TMP/v2ray.exe -ldflags "-s -w"
 		env CGO_ENABLED=0 go build -o $TMP/wv2ray.exe -ldflags "-s -w -H windowsgui"
 	elif [[ $GOARCH == "armv5" ]];then
-		env CGO_ENABLED=0 GOARM=5 go build -o $TMP/v2ray -ldflags "-s -w"
+		env CGO_ENABLED=0 GOARCH=arm GOARM=5 go build -o $TMP/v2ray -ldflags "-s -w"
 	elif [[ $GOARCH == "armv6" ]];then
-		env CGO_ENABLED=0 GOARM=6 go build -o $TMP/v2ray -ldflags "-s -w"
+		env CGO_ENABLED=0 GOARCH=arm GOARM=6 go build -o $TMP/v2ray -ldflags "-s -w"
 	elif [[ $GOARCH == "armv7" ]];then
-		env CGO_ENABLED=0 GOARM=7 go build -o $TMP/v2ray -ldflags "-s -w"
+		env CGO_ENABLED=0 GOARCH=arm GOARM=7 go build -o $TMP/v2ray -ldflags "-s -w"
 	else
     env CGO_ENABLED=0 go build -o $TMP/v2ray -ldflags "-s -w"
   fi
