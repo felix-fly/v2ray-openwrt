@@ -15,6 +15,7 @@ else
   exit
 fi
 
+float=""
 if [[ $platform == "mips" || $platform == "mipsle" ]]
 then
   read -r -p "Enable FPU support(soft-float)? [y/N] " input
