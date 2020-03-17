@@ -50,7 +50,7 @@ GOARCH=$2
 
 export GOOS GOARCH
 export PATH=$PATH:/usr/local/go/bin
-export GOROOT=/usr/local/go/bin
+export GOROOT=/usr/local/go
 go version
 echo "Build ARGS: GOOS=${GOOS} GOARCH=${GOARCH}"
 build_v2
