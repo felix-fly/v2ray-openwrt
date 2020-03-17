@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: init
         run: |
+          sudo rm -rf /usr/bin/go
           sudo apt-get update
           sudo apt-get install -y upx
           wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz
