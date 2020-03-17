@@ -12,8 +12,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y upx
-          wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
-          sudo tar -C /usr/local -xzf go1.13.5.linux-amd64.tar.gz
+          wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xzf go1.14.linux-amd64.tar.gz
       - name: build
         run: |
           mkdir tmp
