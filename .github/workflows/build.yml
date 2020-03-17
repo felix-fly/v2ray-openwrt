@@ -12,9 +12,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y upx
-          sudo rm -rf /usr/bin/go
+          sudo rm -rf /usr/bin/go*
           wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz
-          sudo tar -C /usr/bin -xzf go1.14.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xzf go1.14.linux-amd64.tar.gz
+          sudo ln -s /usr/local/go/bin/* /usr/bin/
       - name: build
         run: |
           mkdir tmp
