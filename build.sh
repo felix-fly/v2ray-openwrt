@@ -50,7 +50,7 @@ GOARCH=$2
 
 export GOOS GOARCH
 export PATH=$PATH:/usr/local/go/bin
-go --version
+go version
 echo "Build ARGS: GOOS=${GOOS} GOARCH=${GOARCH}"
 build_v2
 packzip
