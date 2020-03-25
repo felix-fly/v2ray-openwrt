@@ -2,7 +2,6 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=v2ray
 PKG_VERSION:=4.22.1
-PKG_RELEASE:=1
 
 SOURCE_DIR:=.
 
@@ -17,11 +16,14 @@ define Package/v2ray
 endef
 
 define Build/Compile
-  true
+        true
 endef
 
 define Package/v2ray/install
-  cp $(SOURCE_DIR)/v2ray $(1)/usr/bin
+        $(INSTALL_DIR) $(1)/usr/bin
+        $(CP) $(SOURCE_DIR)/v2ray $(1)/usr/bin/
+        $(INSTALL_DIR) $(1)/etc/init.d
+        $(CP) $(SOURCE_DIR)/v2ray.service $(1)/etc/init.d/v2ray
 endef
 
 $(eval $(call BuildPackage,v2ray))
