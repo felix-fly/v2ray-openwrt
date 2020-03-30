@@ -24,7 +24,7 @@ jobs:
           mkdir bin
           git clone https://github.com/v2ray/v2ray-core.git
           cd v2ray-core
-          git checkout tags/v4.22.1
+          git checkout tags/v4.23.1
           cd ..
           sed -i 's/_ "v2ray.com\/core\/main\/json"/\/\/_ "v2ray.com\/core\/main\/json"/' v2ray-core/main/distro/all/all.go
           sed -i 's/\/\/ _ "v2ray.com\/core\/main\/jsonem"/_ "v2ray.com\/core\/main\/jsonem"/' v2ray-core/main/distro/all/all.go
