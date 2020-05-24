@@ -19,7 +19,7 @@ build_v2() {
 	cd main
 	if [[ $GOARCH == "mips" || $GOARCH == "mipsle" ]];then
 		env CGO_ENABLED=0 go build -o $TMP/v2ray -ldflags "-s -w"
-		env CGO_ENABLED=0 GOMIPS=softfloat go build -o $TMP/v2ray_softfloat -ldflags "-s -w"
+		env CGO_ENABLED=0 GOMIPS=softfloat go build -o $TMP/v2ray_softfloat -ldflags "-s -w" -tags "confonly"
 	elif [[ $GOOS == "windows" ]];then
 		env CGO_ENABLED=0 go build -o $TMP/v2ray.exe -ldflags "-s -w"
 		env CGO_ENABLED=0 go build -o $TMP/wv2ray.exe -ldflags "-s -w -H windowsgui"
