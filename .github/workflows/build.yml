@@ -16,13 +16,13 @@ jobs:
           sudo apt-get install -y upx
           sudo rm -rf /usr/bin/go*
           sudo rm -rf /usr/local/go
-          wget https://dl.google.com/go/go1.14.linux-amd64.tar.gz
-          sudo tar -C /usr/local -xzf go1.14.linux-amd64.tar.gz
+          wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
       - name: build
         run: |
           mkdir tmp
           mkdir bin
-          git clone https://github.com/v2ray/v2ray-core.git
+          git clone https://github.com/v2ray/v2ray-core.git --depth=1
           cd v2ray-core
           git checkout tags/v4.23.1
           cd ..
