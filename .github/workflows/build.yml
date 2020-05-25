@@ -22,7 +22,8 @@ jobs:
         run: |
           mkdir tmp
           mkdir bin
-          git clone https://github.com/v2ray/v2ray-core.git --depth=1
+          # Do not use "--depth=1" due to tags
+          git clone https://github.com/v2ray/v2ray-core.git
           cd v2ray-core
           git checkout tags/v4.23.1
           cd ..
