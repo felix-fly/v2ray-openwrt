@@ -21,7 +21,7 @@
 
 ssh登陆到路由器执行脚本，路由器需联网及已安装wget。
 
-```shell
+```bash
 wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/install.sh
 chmod +x install.sh
 ./install.sh 386
