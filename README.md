@@ -33,7 +33,13 @@ CPU不支持硬件浮点计算时需要开启FPU。
 
 如果v2ray一站式服务的方式不能满足你的需求，或者遇到了性能瓶颈（下载慢），可以试试另外一种解决方案（优化方案）：
 
-[v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
+[https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
+
+## 树莓派4b独立部署（极限方案）
+
+使用树莓派4b安装openwrt配置独立服务trojan/v2ray，**千兆高速**解决方案，性价比超软路由。
+
+[https://github.com/felix-fly/openwrt-raspberry](https://github.com/felix-fly/openwrt-raspberry)
 
 ## 下载压缩好的v2ray
 
@@ -188,6 +194,9 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
 ## 更新记录
+2020-06-09
+* 添加树莓派4b方案链接
+
 2020-02-17
 * 增加了安装脚本
 
