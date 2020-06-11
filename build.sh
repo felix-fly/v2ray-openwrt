@@ -29,6 +29,8 @@ build_v2() {
 		env CGO_ENABLED=0 GOARCH=arm GOARM=6 go build -o $TMP/v2ray -ldflags "-s -w"
 	elif [[ $GOARCH == "armv7" ]];then
 		env CGO_ENABLED=0 GOARCH=arm GOARM=7 go build -o $TMP/v2ray -ldflags "-s -w"
+	elif [[ $GOARCH == "arm64" ]];then
+		env CGO_ENABLED=0 GOARCH=arm64 go build -o $TMP/v2ray -ldflags "-s -w"
 	else
     env CGO_ENABLED=0 go build -o $TMP/v2ray -ldflags "-s -w"
   fi
