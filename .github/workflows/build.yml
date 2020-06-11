@@ -12,12 +12,14 @@ jobs:
     steps:
       - name: init
         run: |
-          sudo apt-get update
-          sudo apt-get install -y upx
           sudo rm -rf /usr/bin/go*
           sudo rm -rf /usr/local/go
           wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
           sudo tar -C /usr/local -xzf go1.14.4.linux-amd64.tar.gz
+          wget https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
+          tar xf upx-3.96-amd64_linux.tar.xz
+          mv upx-3.96-amd64_linux/upx .
+          rm -rf upx-3.96-amd64_linux*
       - name: build
         run: |
           mkdir tmp

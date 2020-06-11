@@ -40,9 +40,9 @@ path=${path//\//}
 read -r -p "Enable UDP support? [y/N] " input
 case $input in
   [yY][eE][sS]|[yY])
-		echo "Yes"
+    echo "Yes"
     config="udp"
-		;;
+    ;;
   *)
     echo "No"
     config="tcp"
@@ -78,9 +78,9 @@ sed -i "s/==YOUR ENTRY PATH==/\/$path\//" config.json
 read -r -p "Start v2ray now? [y/N] " input
 case $input in
   [yY][eE][sS]|[yY])
-		echo "Yes"
+    echo "Yes"
     /etc/init.d/v2ray start
-		;;
+    ;;
   *)
     echo "No"
     ;;
