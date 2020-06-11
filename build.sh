@@ -42,7 +42,7 @@ build_v2() {
 packzip() {
   echo ">>> Generating zip package"
   cd $TMP
-  ~/upx --best --lzma *
+  ./upx --best --lzma *
   tar -czvf $BASE/bin/v2ray-${GOOS}-${GOARCH}.tar.gz *
   cd $BASE
 }
