@@ -2,6 +2,20 @@
 
 本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出的配置样例 [仅TCP](./client-tcp.json) [支持UDP](./client-udp.json) 供参考，配置采用ws作为底层传输协议，服务端及nginx相关配置可度娘。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
 
+此方案相对简单，适合对性能要求不高，只要能正常爬网即可的情况使用，有更高要求的请看下面的方案。
+
+## 优化方案
+
+如果v2ray一站式服务的方式不能满足你的需求，或者遇到了性能瓶颈（下载慢），可以试试另外一种优化方案：
+
+[https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
+
+## 高速方案，更高！更快！更强
+
+使用树莓派4b安装openwrt配置独立服务trojan/v2ray，**千兆高速**解决方案，性价比超软路由。
+
+[https://github.com/felix-fly/openwrt-raspberry](https://github.com/felix-fly/openwrt-raspberry)
+
 ## 安装脚本
 
 路由器CPU平台请自行查询确认，支持的平台如下
@@ -28,18 +42,6 @@ chmod +x install.sh
 ```
 
 CPU不支持硬件浮点计算时需要开启FPU。
-
-## 另一种解决方案（优化方案）
-
-如果v2ray一站式服务的方式不能满足你的需求，或者遇到了性能瓶颈（下载慢），可以试试另外一种解决方案（优化方案）：
-
-[https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
-
-## 树莓派4b独立部署（极限方案）
-
-使用树莓派4b安装openwrt配置独立服务trojan/v2ray，**千兆高速**解决方案，性价比超软路由。
-
-[https://github.com/felix-fly/openwrt-raspberry](https://github.com/felix-fly/openwrt-raspberry)
 
 ## 下载压缩好的v2ray
 
