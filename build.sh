@@ -6,6 +6,7 @@ TMP=$BASE/tmp
 
 CODENAME="user"
 BUILDNAME=$NOW
+UPX=upx
 
 cleanup () { rm -rf $TMP; }
 trap cleanup INT TERM ERR
@@ -18,6 +19,7 @@ build_v2() {
   echo ">>> Compile v2ray ..."
   cd main
   if [[ $GOARCH == "mips" || $GOARCH == "mipsle" ]];then
+    UPX=$BASE/upx
     env CGO_ENABLED=0 go build -o $TMP/v2ray -ldflags "-s -w"
     env CGO_ENABLED=0 GOMIPS=softfloat go build -o $TMP/v2ray_softfloat -ldflags "-s -w"
   elif [[ $GOOS == "windows" ]];then
@@ -42,7 +44,7 @@ build_v2() {
 packzip() {
   echo ">>> Generating zip package"
   cd $TMP
-  $BASE/upx --best --lzma *
+  $UPX --best --lzma *
   tar -czvf $BASE/bin/v2ray-${GOOS}-${GOARCH}.tar.gz *
   cd $BASE
 }

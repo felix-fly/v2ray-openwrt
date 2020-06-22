@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: init
         run: |
+          # upx 3.95 for mips wait for 4.0 fix https://github.com/upx/upx/issues/342
+          sudo apt-get update
+          sudo apt-get install -y upx
           sudo rm -rf /usr/bin/go*
           sudo rm -rf /usr/local/go
           wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
