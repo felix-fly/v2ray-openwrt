@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=4.22.1
+VERSION=4.26.0
 DIR=/etc/config/v2ray
 # DIR=./tmp
 
