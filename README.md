@@ -1,6 +1,6 @@
 # v2ray-openwrt
 
-本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出的配置样例 [仅TCP](./client-tcp.json) [支持UDP](./client-udp.json) 供参考，配置采用ws作为底层传输协议，服务端及nginx相关配置可度娘。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
+本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出的配置样例 [仅TCP](./client-tcp.json) [支持UDP](./client-udp.json) 供参考，配置采用ws作为底层传输协议，服务端及nginx相关配置可以[参考这里](./server.md)也可自行度娘。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
 
 此方案相对简单，适合对性能要求不高，只要能正常爬网即可的情况使用，有更高要求的请看下面的方案。
 
@@ -16,7 +16,7 @@
 
 [https://github.com/felix-fly/openwrt-raspberry](https://github.com/felix-fly/openwrt-raspberry)
 
-## 安装脚本
+# 脚本安装方式（路由）
 
 路由器CPU平台请自行查询确认，支持的平台如下
 
@@ -33,7 +33,7 @@
 * ppc64
 * ppc64le
 
-ssh登陆到路由器执行脚本，路由器需联网及已安装wget。
+ssh登陆到路由器执行脚本，注意替换平台名称，路由器需联网及已安装wget。
 
 ```bash
 wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/install.sh
@@ -41,9 +41,11 @@ chmod +x install.sh
 ./install.sh 386
 ```
 
-CPU不支持硬件浮点计算时需要开启FPU。
+安装过程中对于FPU选项，如果CPU不支持硬件浮点计算，则需要开启FPU。
 
-## 下载压缩好的v2ray
+# 手动安装方式（电脑）
+
+## 下载v2ray
 
 [release](https://github.com/felix-fly/v2ray-openwrt/releases)页面提供了各平台下的v2ray执行文件，可以直接下载使用。
 
@@ -106,7 +108,7 @@ ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
 /etc/init.d/v2ray stop
 ```
 
-## 透明代理（可选）
+# 配置透明代理（可选）
 
 使用iptables实现，当前系统是否支持请先自行验证。开启UDP需要 iptables-mod-tproxy 模块，请确保已经安装好。
 
@@ -196,6 +198,10 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
 ## 更新记录
+2020-07-08
+* 增加server配置说明
+* 优化文案
+
 2020-06-09
 * 添加树莓派4b方案链接
 
