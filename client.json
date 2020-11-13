@@ -1,0 +1,59 @@
+{
+  "log": {
+    "loglevel": "none"
+  },
+  "inbounds": [{
+    "port": 12345,
+    "protocol": "dokodemo-door",
+    "sniffing": {
+      "enabled": true,
+      "destOverride": ["http", "tls"]
+    },
+    "settings": {
+      "network": "tcp,udp",
+      "followRedirect": true
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  }, {
+    "protocol": "blackhole",
+    "settings": {},
+    "tag": "blocked"
+  }, {
+    "protocol": "vless",
+    "settings": {
+      "vnext": [{
+        "address": "==YOUR DOMAIN==",
+        "port": 443,
+        "users": [{
+          "id": "==YOUR USER ID==",
+          "encryption": "none",
+          "flow": "xtls-rprx-direct"
+        }]
+      }]
+    },
+    "streamSettings": {
+      "network": "tcp",
+      "security": "xtls",
+      "xtlsSettings": {
+        "serverName": "==YOUR DOMAIN=="
+      }
+    }
+  }],
+  "routing": {
+    "strategy": "rules",
+    "settings": {
+      "rules": [{
+        "type": "field",
+        "domain" : ["ext:site.dat:gw"],
+        "outboundTag": "proxy"
+      }, {
+        "type": "field",
+        "domain" : ["ext:site.dat:ad"],
+        "outboundTag": "blocked"
+      }]
+    }
+  }
+}

@@ -1,6 +1,17 @@
 # v2ray-openwrt
 
-本文为在路由器openwrt中使用v2ray的简单流程，相关的配置请参考官方文档，为了方便小伙伴们，这里给出的配置样例 [仅TCP](./client-tcp.json) [支持UDP](./client-udp.json) 供参考，配置采用ws作为底层传输协议，服务端及nginx相关配置可以[参考这里](./server.md)也可自行度娘。注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤，site.dat文件可以从[v2ray-adlist](https://github.com/felix-fly/v2ray-adlist)获取最新版。
+本文为在路由器openwrt中使用v2ray的简单流程，相关的配置说明请参考官方文档。
+
+v2ray新增了xtls协议，性能大幅提升，强烈推荐使用。
+
+为了方便小伙伴们，这里给出参考配置文件：
+
+* [客户端配置](./client.json) 
+* [服务端配置](./server.md)
+
+注意替换==包含的内容为你自己的配置，路由部分使用自定义的site文件，支持gw上网及各种广告过滤。
+
+* [点此获取 site.dat 最新版](https://github.com/felix-fly/v2ray-adlist)
 
 此方案相对简单，适合对性能要求不高，只要能正常爬网即可的情况使用，有更高要求的请看下面的方案。
 
@@ -8,13 +19,13 @@
 
 如果v2ray一站式服务的方式不能满足你的需求，或者遇到了性能瓶颈（下载慢），可以试试另外一种优化方案：
 
-[https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
+* [https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt](https://github.com/felix-fly/v2ray-dnsmasq-dnscrypt)
 
 ## 高速方案，更高！更快！更强
 
 使用树莓派4b安装openwrt配置独立服务trojan/v2ray，**千兆高速**解决方案，性价比超软路由。
 
-[https://github.com/felix-fly/openwrt-raspberry](https://github.com/felix-fly/openwrt-raspberry)
+* [https://github.com/felix-fly/openwrt-raspberry](https://github.com/felix-fly/openwrt-raspberry)
 
 # 脚本安装方式（路由）
 
@@ -198,6 +209,10 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
 ## 更新记录
+2020-11-13
+* 使用xtls协议
+* 优化文案
+
 2020-07-08
 * 增加server配置说明
 * 优化文案

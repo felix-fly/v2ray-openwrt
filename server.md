@@ -6,6 +6,8 @@
 
 服务器操作系统此处选用的是ubuntu 18.04，其它的linux发行版可以参考。
 
+之前是nginx在前，然后ws到v2ray，现在采用xtls协议后，需要v2ray在前，nginx为回落。
+
 配置环境，安装软件
 
 ```bash
@@ -49,29 +51,13 @@ source ~/.bashrc
 sudo rm /etc/nginx/sites-enabled/default
 sudo bash -c 'cat > /etc/nginx/conf.d/default.conf<<EOF
 server {
-  listen 443 ssl http2;
+  listen 80 http2;
   server_name YOUR_DOMAIN;
   index index.html;
   add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload";
-  ssl_certificate /home/ubuntu/.acme.sh/YOUR_DOMAIN/fullchain.cer;
-  ssl_certificate_key /home/ubuntu/.acme.sh/YOUR_DOMAIN/YOUR_DOMAIN.key;
-  ssl_ciphers TLS_CHACHA20_POLY1305_SHA256:TLS-AES-128-GCM-SHA256;
-  ssl_protocols TLSv1.3;
-  ssl_prefer_server_ciphers on;
-  ssl_session_cache shared:SSL:10m;
   access_log /opt/nginx-logs/access.log;
   error_log /opt/nginx-logs/error.log;
   root /opt/www;
-  location /path/ {
-    proxy_redirect off;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade \$http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_set_header Host \$http_host;
-    if (\$http_upgrade = "websocket" ) {
-      proxy_pass http://127.0.0.1:1443;
-    }
-  }
 }
 EOF'
 ```
@@ -81,7 +67,7 @@ EOF'
 可以使用官方的脚本安装，也可以安装笔者的单文件版。
 
 ```bash
-V2RAY=4.26.0
+V2RAY=4.32.1
 sudo mkdir /etc/v2ray
 wget https://github.com/felix-fly/v2ray-openwrt/releases/download/$V2RAY/v2ray-linux-amd64.tar.gz
 sudo tar -xzvf v2ray-linux-amd64.tar.gz -C /etc/v2ray
@@ -97,26 +83,31 @@ sudo systemctl enable v2ray.service
 ```bash
 sudo bash -c 'cat > /etc/v2ray/config.json<<EOF
 {
+  "log": {"loglevel": "none"},
   "inbounds": [{
-    "port": 1443,
-    "protocol": "vmess",
+    "port": 443,
+    "protocol": "vless",
     "settings": {
       "clients": [{
         "id": "YOUR_ID",
-        "alterId": 4
-      }]
+        "flow": "xtls-rprx-direct"
+      }],
+      "decryption": "none",
+      "fallbacks": [{"dest": 80}]
     },
     "streamSettings": {
-      "network": "ws",
-      "wsSettings": {
-        "path": "/path/"
+      "network": "tcp",
+      "security": "xtls",
+      "xtlsSettings": {
+        "alpn": ["h2"],
+        "certificates": [{
+          "certificateFile": "/home/ubuntu/.acme.sh/YOUR_DOMAIN/fullchain.cer",
+          "keyFile": "/home/ubuntu/.acme.sh/YOUR_DOMAIN/YOUR_DOMAIN.key"
+        }]
       }
     }
   }],
-  "outbounds": [{
-    "protocol": "freedom",
-    "settings": {}
-  }]
+  "outbounds": [{"protocol": "freedom", "settings": {}}]
 }
 EOF'
 ```
