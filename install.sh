@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=4.27.0
+VERSION=4.32.1
 DIR=/etc/config/v2ray
 # DIR=./tmp
 
@@ -33,27 +33,15 @@ fi
 
 read -p "Enter the server address:" server
 read -p "Enter the user id:" user
-read -p "Enter the ws path:" path
+read -p "Enter the v2ray version(Default: $VERSION):" ver
 
-path=${path//\//}
-
-read -r -p "Enable UDP support? [y/N] " input
-case $input in
-  [yY][eE][sS]|[yY])
-    echo "Yes"
-    config="udp"
-    ;;
-  *)
-    echo "No"
-    config="tcp"
-    ;;
-esac
+version=${version:-"$VERSION"}
 
 mkdir -p $DIR
 cd $DIR
-wget https://github.com/felix-fly/v2ray-openwrt/releases/download/$VERSION/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
+wget https://github.com/felix-fly/v2ray-openwrt/releases/download/$version/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
 wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/v2ray.service
-wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/client-$config.json -O config.json
+wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/client.json -O config.json
 wget https://raw.githubusercontent.com/felix-fly/v2ray-adlist/master/site.dat
 
 tar -xzvf /tmp/v2ray.tar.gz -C /tmp
@@ -71,9 +59,8 @@ chmod +x v2ray v2ray.service
 ln -s $DIR/v2ray.service /etc/init.d/v2ray
 /etc/init.d/v2ray enable
 
-sed -i "s/==YOUR DOMAIN or SERVER ADDRESS==/$server/" config.json
-sed -i "s/==YOUR USER ID==/$user/" config.json
-sed -i "s/==YOUR ENTRY PATH==/\/$path\//" config.json
+sed -i "s/==YOUR DOMAIN==/$server/g" config.json
+sed -i "s/==YOUR USER ID==/$user/g" config.json
 
 read -r -p "Start v2ray now? [y/N] " input
 case $input in
