@@ -67,7 +67,7 @@ EOF'
 可以使用官方的脚本安装，也可以安装笔者的单文件版。
 
 ```bash
-V2RAY=4.32.1
+V2RAY=4.33.0
 sudo mkdir /etc/v2ray
 wget https://github.com/felix-fly/v2ray-openwrt/releases/download/$V2RAY/v2ray-linux-amd64.tar.gz
 sudo tar -xzvf v2ray-linux-amd64.tar.gz -C /etc/v2ray
@@ -89,16 +89,15 @@ sudo bash -c 'cat > /etc/v2ray/config.json<<EOF
     "protocol": "vless",
     "settings": {
       "clients": [{
-        "id": "YOUR_ID",
-        "flow": "xtls-rprx-direct"
+        "id": "YOUR_ID"
       }],
       "decryption": "none",
       "fallbacks": [{"dest": 80}]
     },
     "streamSettings": {
       "network": "tcp",
-      "security": "xtls",
-      "xtlsSettings": {
+      "security": "tls",
+      "tlsSettings": {
         "alpn": ["h2"],
         "certificates": [{
           "certificateFile": "/home/ubuntu/.acme.sh/YOUR_DOMAIN/fullchain.cer",

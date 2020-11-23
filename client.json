@@ -29,15 +29,14 @@
         "port": 443,
         "users": [{
           "id": "==YOUR USER ID==",
-          "encryption": "none",
-          "flow": "xtls-rprx-direct"
+          "encryption": "none"
         }]
       }]
     },
     "streamSettings": {
       "network": "tcp",
-      "security": "xtls",
-      "xtlsSettings": {
+      "security": "tls",
+      "tlsSettings": {
         "serverName": "==YOUR DOMAIN=="
       }
     }
