@@ -1,0 +1,20 @@
+[Unit]
+Description=Caddy
+Documentation=https://caddyserver.com/docs/
+After=network.target network-online.target
+Requires=network-online.target
+
+[Service]
+#User=caddy
+#Group=caddy
+ExecStart=/opt/caddy/caddy run --environ --config /opt/caddy/config
+ExecReload=/opt/caddy/caddy reload --config /opt/caddy/config
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+LimitNPROC=512
+PrivateTmp=true
+ProtectSystem=full
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target
