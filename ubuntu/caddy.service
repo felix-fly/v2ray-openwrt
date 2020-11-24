@@ -7,8 +7,8 @@ Requires=network-online.target
 [Service]
 User=caddy
 Group=caddy
-ExecStart=/opt/caddy/caddy run --environ --config /opt/caddy/config
-ExecReload=/opt/caddy/caddy reload --config /opt/caddy/config
+ExecStart=/opt/caddy/caddy run --environ --config /opt/caddy/Caddyfile
+ExecReload=/opt/caddy/caddy reload --config /opt/caddy/Caddyfile
 TimeoutStopSec=5s
 LimitNOFILE=1048576
 LimitNPROC=512
