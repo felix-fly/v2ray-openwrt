@@ -2,7 +2,11 @@
 
 本文为在路由器openwrt中使用v2ray的简单流程，相关的配置说明请参考官方文档。
 
-前段时间v2ray新增了xtls协议，性能大幅提升，但是从4.33开始由于某些原因又全面移除了该协议，暂时还是继续使用tls，毕竟用到极限性能的情况不多。需要使用xtls的可以继续使用4.32.1版本，或者后续关注v2ray的动向。
+前段时间v2ray新增了xtls协议，性能大幅提升，但是从4.33开始由于某些原因又全面移除了该协议。
+
+现在xray独立发布了，对于性能有要求的小伙伴可以前去体验xtls的效果。
+
+* [xray-openwrt](https://github.com/felix-fly/xray-openwrt)
 
 为了方便小伙伴们，这里给出参考配置文件：
 
@@ -211,6 +215,9 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
 ## 更新记录
+2020-12-08
+* 增加xray链接
+
 2020-11-23
 * 回退使用tls协议
 
