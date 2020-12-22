@@ -35,7 +35,7 @@ read -p "Enter the server address:" server
 read -p "Enter the user id:" user
 read -p "Enter the v2ray version(Default: $VERSION):" ver
 
-version=${version:-"$VERSION"}
+version=${ver:-"$VERSION"}
 
 mkdir -p $DIR
 cd $DIR
