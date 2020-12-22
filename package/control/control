@@ -1,0 +1,11 @@
+Package: v2ray
+Version: ==VERSION==
+Depends: ca-bundle
+Source: feeds/packages/v2ray
+SourceName: v2ray
+License: GPL-3.0-or-later
+Section: net
+Maintainer: everyone <everyone@abc.com>
+Architecture: all
+Installed-Size: ==SIZE==
+Description: The v2ray client for openwrt.

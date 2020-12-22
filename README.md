@@ -31,9 +31,37 @@
 
 * [https://github.com/felix-fly/openwrt-raspberry](https://github.com/felix-fly/openwrt-raspberry)
 
-# 脚本安装方式（路由）
+## 自行构建ipk安装包
 
-路由器CPU平台请自行查询确认，支持的平台如下
+看到小伙伴有这个想法，花了点时间，弄了个脚本，可以自行构建ipk包，方便到openwrt中安装
+
+先克隆项目到某个linux环境下，windows的wsl未做测试，理论上应该也可以
+
+```bash
+git clone https://github.com/felix-fly/v2ray-openwrt.git
+```
+
+进入项目目录，运行脚本，参数为CPU平台，版本不指定默认为最新版
+
+```bash
+./package.sh amd64
+```
+
+生成的ipk包在当前路径下，形如 **v2ray-xxx.ipk** 
+
+路由安装后需要自行修改配置文件
+
+```bash
+/etc/v2ray/config.json
+```
+
+对路由操作不熟悉的可以在打包前先修改
+
+> ./package/data/etc/v2ray/config.json
+
+需要使用v2ray路由策略也可以自行在此路径下加入site.dat等文件
+
+可选的平台参数：
 
 * 386
 * amd64
@@ -47,6 +75,10 @@
 * mips64le
 * ppc64
 * ppc64le
+
+# 脚本安装方式（路由）
+
+路由器CPU平台请自行查询确认，可选的平台参数同上
 
 ssh登陆到路由器执行脚本，注意替换平台名称，路由器需联网及已安装wget。
 
@@ -215,6 +247,9 @@ bazel build --action_env=GOPATH=$GOPATH --action_env=PATH=$PATH //release:v2ray_
 采用jsonem的话打包出来的v2ray体积为15mb多，UPX之后约3.6mb，个人觉得还ok，这样的话在路由器中可以直接读取json配置文件而不再需要v2ctl。
 
 ## 更新记录
+2020-12-22
+* 增加ipk打包脚本
+
 2020-12-08
 * 增加xray链接
 

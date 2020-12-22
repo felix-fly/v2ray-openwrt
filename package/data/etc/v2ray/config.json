@@ -1,0 +1,26 @@
+{
+  "log": { "loglevel": "none" },
+  "inbounds": [{
+    "port": 12345,
+    "protocol": "dokodemo-door",
+    "settings": { "followRedirect": true }
+  }],
+  "outbounds": [{
+    "protocol": "vless",
+    "settings": {
+      "vnext": [{
+        "address": "==YOUR DOMAIN==",
+        "port": 443,
+        "users": [{
+          "id": "==YOUR USER ID==",
+          "encryption": "none"
+        }]
+      }]
+    },
+    "streamSettings": {
+      "network": "ws",
+      "security": "tls",
+      "wsSettings": { "path": "/path" }
+    }
+  }]
+}
