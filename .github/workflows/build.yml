@@ -30,16 +30,14 @@ jobs:
           # Do not use "--depth=1" due to tags
           git clone https://github.com/v2fly/v2ray-core.git
           cd v2ray-core
-          git checkout tags/v4.33.0
+          git checkout tags/v4.34.0
           cd ..
           sed -i 's/^\t_ "v2ray.com\/core\/main\/json"/\t\/\/ _ "v2ray.com\/core\/main\/json"/' v2ray-core/main/distro/all/all.go
           sed -i 's/^\t\/\/ _ "v2ray.com\/core\/main\/jsonem"/\t_ "v2ray.com\/core\/main\/jsonem"/' v2ray-core/main/distro/all/all.go
           wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh
           chmod +x ./build.sh
+          ./build.sh android arm64
           ./build.sh darwin amd64
-          ./build.sh dragonfly amd64
-          ./build.sh freebsd 386
-          ./build.sh freebsd amd64
           ./build.sh linux 386
           ./build.sh linux amd64
           ./build.sh linux armv5
@@ -50,13 +48,6 @@ jobs:
           ./build.sh linux mipsle
           ./build.sh linux mips64
           ./build.sh linux mips64le
-          ./build.sh linux ppc64
-          ./build.sh linux ppc64le
-          ./build.sh linux s390x
-          ./build.sh openbsd 386
-          ./build.sh openbsd amd64
-          ./build.sh windows 386
-          ./build.sh windows amd64
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:

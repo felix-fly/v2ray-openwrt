@@ -88,8 +88,6 @@ git clone https://github.com/felix-fly/v2ray-openwrt.git
 * mipsle
 * mips64
 * mips64le
-* ppc64
-* ppc64le
 
 ## 脚本安装（路由）
 
