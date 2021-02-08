@@ -5,8 +5,8 @@ After=network.target network-online.target
 Requires=network-online.target
 
 [Service]
-User=caddy
-Group=caddy
+# User=caddy
+Group=www-data
 ExecStart=/opt/caddy/caddy run --environ --config /opt/caddy/Caddyfile
 ExecReload=/opt/caddy/caddy reload --config /opt/caddy/Caddyfile
 TimeoutStopSec=5s
