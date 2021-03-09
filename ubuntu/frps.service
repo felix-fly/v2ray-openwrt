@@ -4,7 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=nobody
+User=www-data
+Group=www-data
 Restart=on-failure
 RestartSec=5s
 ExecStart=/opt/frp/frps -c /opt/frp/frps.ini
