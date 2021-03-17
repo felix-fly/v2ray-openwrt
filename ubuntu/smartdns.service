@@ -1,0 +1,14 @@
+[Unit]
+Description=Smartdns Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+Restart=on-failure
+RestartSec=5s
+ExecStart=/opt/smartdns/smartdns -c /opt/smartdns/my.conf
+
+[Install]
+WantedBy=multi-user.target
