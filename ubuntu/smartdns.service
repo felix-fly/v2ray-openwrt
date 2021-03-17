@@ -1,14 +1,18 @@
 [Unit]
-Description=Smartdns Service
+Description=smartdns server
 After=network.target
+StartLimitBurst=0
+StartLimitIntervalSec=60
+TimeoutStopSec=5
 
 [Service]
-Type=simple
-User=www-data
-Group=www-data
-Restart=on-failure
-RestartSec=5s
-ExecStart=/opt/smartdns/smartdns -c /opt/smartdns/my.conf
+Type=forking
+PIDFile=/var/run/smartdns.pid
+ExecStart=/opt/smartdns/smartdns -p /var/run/smartdns.pid -c /opt/smartdns/my.conf
+KillMode=process
+Restart=always
+RestartSec=2
 
 [Install]
 WantedBy=multi-user.target
+Alias=smartdns.service
