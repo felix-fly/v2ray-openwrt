@@ -52,7 +52,7 @@ jobs:
         # with:
         #   name: build
         #   path: bin
-        uses: ncipollo/release-action@v1.5.0
+        uses: ncipollo/release-action@v1
         with:
           artifacts: "bin/*.tar.gz"
           token: ${{ secrets.UPLOAD_KEY }}
