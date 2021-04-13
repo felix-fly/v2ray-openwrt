@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=4.73.3
+VERSION=latest
 DIR=/etc/config/v2ray
 # DIR=./tmp
 
@@ -39,7 +39,12 @@ version=${ver:-"$VERSION"}
 
 mkdir -p $DIR
 cd $DIR
-wget https://github.com/felix-fly/v2ray-openwrt/releases/download/v$version/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
+if [[ $version == "latest" ]]
+then
+  wget https://github.com/felix-fly/v2ray-openwrt/releases/latest/download/v$version/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
+else
+  wget https://github.com/felix-fly/v2ray-openwrt/releases/download/v$version/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
+fi
 wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/v2ray.service
 wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/client.json -O config.json
 wget https://raw.githubusercontent.com/felix-fly/v2ray-adlist/master/site.dat
