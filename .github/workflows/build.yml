@@ -3,7 +3,7 @@ name: build
 on:
   push:
     tags:
-      - v*
+      - *
 
 jobs:
   build:
@@ -35,18 +35,18 @@ jobs:
           # sed -i 's/^\t\/\/ _ "v2ray.com\/core\/main\/jsonem"/\t_ "v2ray.com\/core\/main\/jsonem"/' v2ray-core/main/distro/all/all.go
           wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh
           chmod +x ./build.sh
-          # ./build.sh android arm64
-          # ./build.sh darwin amd64
+          ./build.sh android arm64
+          ./build.sh darwin amd64
           ./build.sh linux 386
-          # ./build.sh linux amd64
-          # ./build.sh linux armv5
-          # ./build.sh linux armv6
-          # ./build.sh linux armv7
-          # ./build.sh linux arm64
-          # ./build.sh linux mips
-          # ./build.sh linux mipsle
-          # ./build.sh linux mips64
-          # ./build.sh linux mips64le
+          ./build.sh linux amd64
+          ./build.sh linux armv5
+          ./build.sh linux armv6
+          ./build.sh linux armv7
+          ./build.sh linux arm64
+          ./build.sh linux mips
+          ./build.sh linux mipsle
+          ./build.sh linux mips64
+          ./build.sh linux mips64le
       - name: Upload artifact
         # uses: actions/upload-artifact@v2
         # with:
