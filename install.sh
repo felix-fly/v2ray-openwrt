@@ -41,7 +41,7 @@ mkdir -p $DIR
 cd $DIR
 if [[ $version == "latest" ]]
 then
-  wget https://github.com/felix-fly/v2ray-openwrt/releases/latest/download/v$version/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
+  wget https://github.com/felix-fly/v2ray-openwrt/releases/latest/download/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
 else
   wget https://github.com/felix-fly/v2ray-openwrt/releases/download/v$version/v2ray-linux-$platform.tar.gz -O /tmp/v2ray.tar.gz
 fi
