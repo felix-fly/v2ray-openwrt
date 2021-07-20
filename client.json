@@ -23,6 +23,7 @@
     "tag": "blocked"
   }, {
     "protocol": "vless",
+    "tag": "proxy",
     "settings": {
       "vnext": [{
         "address": "==YOUR DOMAIN==",
