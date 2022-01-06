@@ -20,13 +20,13 @@
 
 DESC=v2ray
 NAME=v2ray
-DAEMON=/etc/v2ray/v2ray
+DAEMON=/opt/v2ray/v2ray
 PIDFILE=/var/run/$NAME.pid
 LOCKFILE=/var/lock/subsys/$NAME
 SCRIPTNAME=/etc/init.d/$NAME
 RETVAL=0
 
-DAEMON_OPTS="-config /etc/v2ray/config.json"
+DAEMON_OPTS="-config /opt/v2ray/config.json"
 
 # Exit if the package is not installed
 [ -x $DAEMON ] || exit 0
