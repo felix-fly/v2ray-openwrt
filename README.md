@@ -15,11 +15,21 @@
 
 本文为在路由器 openwrt 中使用 v2ray 的简单流程，相关的配置说明请参考官方文档。
 
+如果你有类似 k2p 这种可以刷 padavan 固件的路由器，也可以自己打造一款科学上网神器。
+
+* [k2p路由器使用padavan(N56U/改华硕)固件安装配置v2ray的进阶流程](https://github.com/felix-fly/v2ray-padavan-doh)
+
+* [榨干 MT7621 极限性能，科学跑满500兆有木有可能](https://itcao.com/2021/08232231.html)
+
+想买路由？换路由？这里有一份秘籍可供参考
+
+* [持续更新的路由器排行榜（天梯图）。想了解路由器，看这里就够了](https://github.com/felix-fly/router-map)
+
 前段时间 v2ray 新增了 xtls 协议，性能大幅提升，但是从 4.33 开始由于某些原因又全面移除了该协议。
 
 现在 xray 独立发布了，对于性能有要求的小伙伴可以前去体验 xtls 的效果。
 
-* [xray-openwrt](https://github.com/felix-fly/xray-openwrt)
+* [路由器Openwrt手工/脚本/ipk包安装xray简单流程](https://github.com/felix-fly/xray-openwrt)
 
 xray 更新加入了 gRPC 协议，点击下面了解一下？
 
