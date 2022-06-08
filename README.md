@@ -168,7 +168,7 @@ stop() {
 
 ```
 chmod +x /etc/config/v2ray/v2ray.service
-ln -s /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
+cp /etc/config/v2ray/v2ray.service /etc/init.d/v2ray
 /etc/init.d/v2ray enable
 ```
 

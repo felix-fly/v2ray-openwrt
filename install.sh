@@ -61,7 +61,7 @@ fi
 rm -f /tmp/v2ray.tar.gz
 chmod +x v2ray v2ray.service
 
-ln -s $DIR/v2ray.service /etc/init.d/v2ray
+cp $DIR/v2ray.service /etc/init.d/v2ray
 /etc/init.d/v2ray enable
 
 sed -i "s/==YOUR DOMAIN==/$server/g" config.json
