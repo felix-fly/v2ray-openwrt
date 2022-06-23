@@ -1,0 +1,17 @@
+[Unit]
+Description=Nginx Service
+After=network.target
+Wants=network.target
+
+[Service]
+User=www-data
+Group=www-data
+Type=simple
+PIDFile=/run/nginx.pid
+ExecStart=/opt/nginx/sbin/nginx -config /opt/nginx/conf/nginx.conf
+Restart=on-failure
+# Don't restart in the case of configuration error
+RestartPreventExitStatus=23
+
+[Install]
+WantedBy=multi-user.target
