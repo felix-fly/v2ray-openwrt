@@ -4,11 +4,9 @@ After=network.target
 Wants=network.target
 
 [Service]
-User=www-data
-Group=www-data
-Type=simple
+Type=forking
 PIDFile=/run/nginx.pid
-ExecStart=/opt/nginx/sbin/nginx -config /opt/nginx/conf/nginx.conf
+ExecStart=/usr/sbin/nginx -c /opt/nginx/conf/nginx.conf
 Restart=on-failure
 # Don't restart in the case of configuration error
 RestartPreventExitStatus=23
