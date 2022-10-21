@@ -11,7 +11,7 @@ User=www-data
 Group=www-data
 Type=simple
 PIDFile=/run/v2ray.pid
-ExecStart=/opt/v2ray/v2ray run /opt/v2ray/config.json
+ExecStart=/opt/v2ray/v2ray run -c /opt/v2ray/config.json -format jsonv5
 Restart=on-failure
 # Don't restart in the case of configuration error
 RestartPreventExitStatus=23
