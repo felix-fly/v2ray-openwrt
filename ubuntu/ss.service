@@ -1,0 +1,18 @@
+[Unit]
+Description=ss server
+After=network.target
+StartLimitBurst=0
+StartLimitIntervalSec=60
+TimeoutStopSec=5
+
+[Service]
+Type=forking
+PIDFile=/var/run/ss.pid
+ExecStart=/opt/ss-libev/ss-server -f /var/run/ss.pid -c /opt/ss-libev/config.json
+KillMode=process
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+Alias=ss.service
