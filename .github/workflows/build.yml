@@ -27,7 +27,7 @@ jobs:
           # Do not use "--depth=1" due to tags
           git clone https://github.com/v2fly/v2ray-core.git
           cd v2ray-core
-          git checkout tags/v5.3.0
+          git checkout tags/v5.12.1
           cd ..
           wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh
           chmod +x ./build.sh
