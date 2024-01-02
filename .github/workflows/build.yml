@@ -16,10 +16,10 @@ jobs:
           sudo rm -rf /usr/local/go
           wget https://dl.google.com/go/go1.20.2.linux-amd64.tar.gz -O go.tar.gz
           sudo tar -C /usr/local -xzf go.tar.gz
-          wget https://github.com/upx/upx/releases/download/v4.0.1/upx-4.0.1-amd64_linux.tar.xz
-          tar xf upx-4.0.1-amd64_linux.tar.xz
-          mv upx-4.0.1-amd64_linux/upx .
-          rm -rf upx-4.0.1-amd64_linux*
+          wget https://github.com/upx/upx/releases/download/v4.2.1/upx-4.2.1-amd64_linux.tar.xz
+          tar xf upx-4.2.1-amd64_linux.tar.xz
+          mv upx-4.2.1-amd64_linux/upx .
+          rm -rf upx-4.2.1-amd64_linux*
       - name: build
         run: |
           mkdir tmp
