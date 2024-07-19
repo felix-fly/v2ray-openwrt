@@ -14,7 +14,7 @@ jobs:
           sudo apt-get update
           sudo rm -rf /usr/bin/go*
           sudo rm -rf /usr/local/go
-          wget https://dl.google.com/go/go1.20.2.linux-amd64.tar.gz -O go.tar.gz
+          wget https://dl.google.com/go/go1.22.5.linux-amd64.tar.gz -O go.tar.gz
           sudo tar -C /usr/local -xzf go.tar.gz
           wget https://github.com/upx/upx/releases/download/v4.2.1/upx-4.2.1-amd64_linux.tar.xz
           tar xf upx-4.2.1-amd64_linux.tar.xz
@@ -27,7 +27,7 @@ jobs:
           # Do not use "--depth=1" due to tags
           git clone https://github.com/v2fly/v2ray-core.git
           cd v2ray-core
-          git checkout tags/v5.12.1
+          git checkout tags/v5.16.1
           cd ..
           wget https://raw.githubusercontent.com/felix-fly/v2ray-openwrt/master/build.sh
           chmod +x ./build.sh
